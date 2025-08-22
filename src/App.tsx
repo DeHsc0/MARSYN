@@ -4,11 +4,11 @@ import { Input } from './components/ui/input'
 import { Button } from './components/ui/button'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import {generateMnemonic , mnemonicToSeed , mnemonicToSeedSync} from "bip39"
+import {generateMnemonic , mnemonicToSeed} from "bip39"
 import { derivePath } from 'ed25519-hd-key'
 import nacl from 'tweetnacl'
-import { Keypair, PublicKey } from '@solana/web3.js'
-import { ethers, HDNodeWallet } from 'ethers'
+import { Keypair} from '@solana/web3.js'
+import {  HDNodeWallet } from 'ethers'
 import { Wallet } from 'ethers'
 import type { Wallets } from './types'
 import WalletContainer from './components/wallets'
@@ -20,8 +20,6 @@ import bs58 from 'bs58'
 function App() {
 
   const [ currentIndex , setCurrentIndex ] = useState<number>(1)
-
-  const [ showPrivateKey , setShowPrivateKey ] = useState<boolean>(false)
 
   const [ existingMn , setExistingMn ] = useState<string>()
   
@@ -72,7 +70,7 @@ function App() {
     if(!isLoading)localStorage.setItem("wallets" , JSON.stringify(wallets))
   } , [wallets , isLoading])
   
-  const {contextSafe} = useGSAP(() => {
+  useGSAP(() => {
 
     gsap.from( secretPhraseDiv.current , {
       opacity : 0,
